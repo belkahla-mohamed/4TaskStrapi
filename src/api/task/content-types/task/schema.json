@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasks",
+  "info": {
+    "singularName": "task",
+    "pluralName": "tasks",
+    "displayName": "Task"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "dueDate": {
+      "type": "date",
+      "required": true
+    },
+    "statusTask": {
+      "type": "enumeration",
+      "required": true,
+      "default": "pending",
+      "enum": [
+        "pending",
+        "in_progress",
+        "done"
+      ]
+    },
+    "priority": {
+      "type": "enumeration",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "isSynced": {
+      "type": "boolean",
+      "default": false
+    },
+    "reminders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reminder.reminder",
+      "mappedBy": "task"
+    },
+    "recurring_task": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::recurring-task.recurring-task",
+      "mappedBy": "task_template"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "tasks"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tasks"
+    }
+  }
+}

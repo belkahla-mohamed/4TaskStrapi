@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reminders",
+  "info": {
+    "singularName": "reminder",
+    "pluralName": "reminders",
+    "displayName": "Reminder"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "time": {
+      "type": "datetime",
+      "required": true
+    },
+    "message": {
+      "type": "string"
+    },
+    "isSent": {
+      "type": "boolean",
+      "default": false
+    },
+    "task": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::task.task",
+      "inversedBy": "reminders"
+    }
+  }
+}

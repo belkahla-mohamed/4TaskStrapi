@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recurring_tasks",
+  "info": {
+    "singularName": "recurring-task",
+    "pluralName": "recurring-tasks",
+    "displayName": "RecurringTask"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "repeat_type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly"
+      ]
+    },
+    "start_date": {
+      "type": "date",
+      "required": true
+    },
+    "end_date": {
+      "type": "date"
+    },
+    "task_template": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::task.task",
+      "inversedBy": "recurring_task"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "recurring_tasks"
+    }
+  }
+}

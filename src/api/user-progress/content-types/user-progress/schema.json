@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_progresses",
+  "info": {
+    "singularName": "user-progress",
+    "pluralName": "user-progresses",
+    "displayName": "UserProgress"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "xp": {
+      "type": "integer",
+      "required": true,
+      "default": 0
+    },
+    "level": {
+      "type": "integer",
+      "required": true,
+      "default": 1
+    },
+    "streak": {
+      "type": "integer"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_progress"
+    }
+  }
+}
