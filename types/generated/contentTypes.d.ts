@@ -424,7 +424,7 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -433,10 +433,15 @@ export interface ApiAchievementAchievement extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    requirement: Schema.Attribute.String & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_achievement: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::user-achievement.user-achievement'
+    >;
     users: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'
@@ -581,6 +586,43 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     user: Schema.Attribute.Relation<
       'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiUserAchievementUserAchievement
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user_achievements';
+  info: {
+    displayName: 'user-achievement';
+    pluralName: 'user-achievements';
+    singularName: 'user-achievement';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    achievement: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::achievement.achievement'
+    >;
+    claimedAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-achievement.user-achievement'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
       'plugin::users-permissions.user'
     >;
   };
@@ -1123,6 +1165,10 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_achievement: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::user-achievement.user-achievement'
+    >;
     user_progress: Schema.Attribute.Relation<
       'oneToOne',
       'api::user-progress.user-progress'
@@ -1152,6 +1198,7 @@ declare module '@strapi/strapi' {
       'api::recurring-task.recurring-task': ApiRecurringTaskRecurringTask;
       'api::reminder.reminder': ApiReminderReminder;
       'api::task.task': ApiTaskTask;
+      'api::user-achievement.user-achievement': ApiUserAchievementUserAchievement;
       'api::user-progress.user-progress': ApiUserProgressUserProgress;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

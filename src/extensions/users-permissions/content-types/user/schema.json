@@ -89,6 +89,12 @@
       "relation": "oneToMany",
       "target": "api::task.task",
       "mappedBy": "user"
+    },
+    "user_achievement": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-achievement.user-achievement",
+      "mappedBy": "user"
     }
   }
 }

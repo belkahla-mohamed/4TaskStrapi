@@ -16,7 +16,8 @@
       "required": true
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "icon": {
       "type": "media",
@@ -37,6 +38,16 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "achievements"
+    },
+    "requirement": {
+      "type": "string",
+      "required": true
+    },
+    "user_achievement": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-achievement.user-achievement",
+      "mappedBy": "achievement"
     }
   }
 }
